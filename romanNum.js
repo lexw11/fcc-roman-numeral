@@ -10,16 +10,39 @@ function convertToRoman(num) {
 	const decs = [ 1, 5, 10, 50, 100, 500, 1000];
 	const roms = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
 
-	// Sort num into decs array
-	let arr = decs.concat([num]).sort( (a, b) => a - b );
-	// Determine num's order of magnitude
-	let div = arr[ arr.indexOf(num) - 1 ];
-	
-	// Determine repetitions of largest order of magnitude
-	let rep = Math.floor( num / div );
-	// Create string with repeating Roman numerals
-	let str = roms[ decs.indexOf(div) ].repeat(rep);
-	console.log(str);
+	return addRoman(num, decs, roms);
+
+	function addRoman(num, decs, roms) {
+		// Sort num into decs array
+		let arr = decs.concat([num]).sort( (a, b) => a - b );
+		// Determine num's order of magnitude
+		let div;
+		if( num === 1 ) {
+			div = num;
+		} else {
+			div = arr[ arr.indexOf(num) - 1 ];
+		}
+		
+		// Determine repetitions of largest order of magnitude
+		let rep = Math.floor( num / div );
+		// Create string with repeating Roman numerals
+		let str = roms[ decs.indexOf(div) ].repeat(rep);
+
+		if( div !== 1 ) {
+			str += addRoman((num - div * rep), decs, roms);
+		}
+		return str;
+	}
 }
 
-convertToRoman(36);
+// console.log(convertToRoman(2));
+// console.log(convertToRoman(3));
+// console.log(convertToRoman(4));
+// console.log(convertToRoman(5));
+// console.log(convertToRoman(9));
+// console.log(convertToRoman(12));
+// console.log(convertToRoman(16));
+// console.log(convertToRoman(29));
+// console.log(convertToRoman(44));
+// console.log(convertToRoman(68));
+// console.log(convertToRoman(400));
