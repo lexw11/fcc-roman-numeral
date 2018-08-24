@@ -13,30 +13,32 @@ function convertToRoman(num) {
 	return addRoman(num, decs, roms);
 
 	function addRoman(num, decs, roms) {
-		// Sort num into decs array
-		let arr = decs.concat([num]).sort( (a, b) => a - b );
+		// First check if num is exactly equal to one of the orders of magnitude
+		if( decs.includes(num) ) {
+			let str = roms[ decs.indexOf(num) ];
+			return str;
 		
-		// Determine num's order of magnitude
-		let div;
-		// Take care of case where num exactly equal to one of the orders of magnitude
-		if( num === arr[ arr.indexOf(num) + 1 ] ) {
-			div = num;
 		} else {
-			div = arr[ arr.indexOf(num) - 1 ];
-		}
-		
-		// Determine repetitions of largest order of magnitude
-		let rep = Math.floor( num / div );
-		
-		// Create string with repeating Roman numerals
-		let str = roms[ decs.indexOf(div) ].repeat(rep);
+			// Sort num into decs array
+			let arr = decs.concat([num]).sort( (a, b) => a - b );
+			
+			// Determine num's order of magnitude
+			let div = arr[ arr.indexOf(num) - 1 ];
 
-		// If num is not evenly divisible by divisor, iterate recursively over remainder
-		if( num % div !== 0 ) {
-			str += addRoman((num - div * rep), decs, roms);
-		}
+			// Determine repetitions of largest order of magnitude
+			let rep = Math.floor( num / div );
 
-		return str;
+			// Create string with repeating Roman numerals
+			let str = roms[ decs.indexOf(div) ].repeat(rep);
+
+			let rmdr = num - div * rep;
+			// If there's a remainder, apply function recursively to it
+			if( rmdr !== 0 ) {
+				str += addRoman(rmdr, decs, roms);
+			}
+			
+			return str;
+		}
 	}
 }
 
@@ -51,3 +53,4 @@ console.log("29 is " + convertToRoman(29));
 console.log("44 is " + convertToRoman(44));
 console.log("68 is " + convertToRoman(68));
 console.log("400 is " + convertToRoman(400));
+console.log(convertToRoman(50));
