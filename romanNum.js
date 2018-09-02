@@ -12,12 +12,12 @@ function convertToRoman(num) {
 	}
 
 	// Split number into array of its digits
-	let arr = num.toString().split("").map( el => parseInt(el, 10) );
+	let arrDig = num.toString().split("").map( el => parseInt(el, 10) );
 	
 	// Convert each digit to corresponding Roman Numeral character
-	let arr2 = arr.map( function(dig, index, arr) {
+	let arrRom = arrDig.map( function(dig, index, arr) {
 		// Determine order of magnitude of digit
-		let mag = arr.length - index - 1;
+		let mag = arrDig.length - index - 1;
 		
 		// Calculate integer quotient and remainder of digit divided by 5
 		let numFive = Math.floor( dig / 5 );
@@ -29,19 +29,21 @@ function convertToRoman(num) {
 		let str;
 		// Handle case where remainder is 4
 		if( rmdr === 4 ) {
+			// Append current powTen character to next larger order of mag character
 			str = romChar(powTen) + romChar(powTen * (numFive + 1) * 5);
 		} else {
+			// Append current order of mag character to powTen characters
 			str = romChar(powTen * numFive * 5) + romChar(powTen).repeat(rmdr);
 		}
 		return str;
 	});
+	
+	return arrRom.join("");
 
 	// Converts order of magnitude number to equivalent Roman Numeral character
 	function romChar(num) {
 		return roms[ num.toString() ];
 	}
-	
-	return arr2.join("");
 }
 
 console.log(convertToRoman(44));
