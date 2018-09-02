@@ -1,4 +1,53 @@
-function convertToRoman(num) {
+// Roman Numeral Converter
+
+// Converts a positive, non-zero integer into its Roman Numeral equivalent
+
+// =====================
+// Query HTML objects
+// =====================
+let input 	 = document.querySelector( 'input' ),
+	button   = document.querySelector( 'button' ),
+	result   = document.querySelector( '#result' ),
+	error	 = document.querySelector( '#error' );
+
+// =====================
+// Add event listeners
+// =====================
+button.addEventListener( 'click', function() {
+	checkForRoman( input );
+});
+
+input.addEventListener( 'keypress', function(event) {
+	if( event.key === 'Enter' ) {
+		checkForRoman( this );
+	}
+});
+
+// =====================
+// Functions
+// =====================
+// Calls convertToRoman if number is positive integer
+function checkForRoman( input ) {
+	// Convert input value from string to number
+	let num = Number(input.value);
+
+	// Make sure input is a positive integer
+	if( Number.isInteger( num ) && num > 0 ) {
+		// Call convertToRoman
+		result.textContent = convertToRoman( num );
+		// Clear previous error message
+		error.textContent = "";
+
+	} else {
+		// Show error message
+		error.textContent = "Please enter a positive, non-zero integer.";
+		// Clear previous result message
+		result.textContent = "";
+	}
+}
+
+// Takes positive integer input and converts to Roman Numeral
+function convertToRoman( num ) {
 	// Define Roman Numeral Characters
 	const roms = {
 		'0':    '',
@@ -45,8 +94,3 @@ function convertToRoman(num) {
 		return roms[ num.toString() ];
 	}
 }
-
-console.log(convertToRoman(44));
-console.log(convertToRoman(29));
-console.log(convertToRoman(20));
-console.log(convertToRoman(9));
