@@ -29,14 +29,22 @@ function convertToRoman(num) {
 		let str;
 		// Handle case where remainder is 4
 		if( rmdr === 4 ) {
-			str = roms[ powTen.toString() ] + roms[ (powTen * (numFive + 1) * 5).toString() ];
+			str = romChar(powTen) + romChar(powTen * (numFive + 1) * 5);
 		} else {
-			str = roms[ (powTen * numFive * 5).toString() ] + roms[ powTen.toString() ].repeat(rmdr);
+			str = romChar(powTen * numFive * 5) + romChar(powTen).repeat(rmdr);
 		}
 		return str;
 	});
+
+	// Converts order of magnitude number to equivalent Roman Numeral character
+	function romChar(num) {
+		return roms[ num.toString() ];
+	}
 	
 	return arr2.join("");
 }
 
 console.log(convertToRoman(44));
+console.log(convertToRoman(29));
+console.log(convertToRoman(20));
+console.log(convertToRoman(9));
