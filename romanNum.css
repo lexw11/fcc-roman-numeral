@@ -1,0 +1,43 @@
+.container {
+	text-align: center;
+}
+
+main > .row {
+	min-height: 100vh;
+}
+
+.form-control {
+	width: 18rem;
+}
+
+.card {
+	background: #9398a0;
+	border: none;
+	color: #fff;
+	font-size: 8rem;
+	min-height: 1.94em;
+}
+
+#result {
+	font-family: 'Cormorant Garamond', serif;
+	font-weight: 300;
+}
+
+#error {
+	height: 1.5rem;
+	margin: 0.5rem 0;
+}
+
+/* Medium Screen */
+@media screen and (min-width: 768px) {
+	.card {
+		font-size: 10rem;
+	}
+}
+
+/* Large Screen */
+@media screen and (min-width: 992px) {
+	.card {
+		font-size: 12rem;
+	}
+}
